@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Pizzeria</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<h1>Pizza Details</h1>
+	<div class="d-flex justify-content-center">
+    <div class="card">
+        <h2>Name: <span th:text="${pizza.name}"></span></h2>
+        <img style="width: 200px;" th:src="${pizza.photo}">
+        <p>Description: <span th:text="${pizza.description}"></span></p>
+        <p>Price: $ <span th:text="${pizza.price}"></span></p>
+    </div>
+    </div>
+</body>
+
+</html>

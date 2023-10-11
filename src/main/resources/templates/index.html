@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Pizzeria</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<a href="/create"> Crea una nuova pizza </a>
+	<form>
+		<label for="name">Cerca una pizza</label>
+		<input type="text" name="name">
+		<button class="btn" type="submit">Cerca</button>
+	</form>
+	<ul th:if="${pizzas.size()} > 0" class="list-unstyled">
+		<li th:each="pizza: ${pizzas}">
+			<a th:href="@{'/' + ${pizza.id}}">
+				<div class="card">
+					<h2>[[${pizza.name}]]</h2>
+				</div>
+			</a>
+			<a th:href="@{'/edit/' + ${pizza.id}}"> Modifica</a>
+			<form th:action="@{'/delete/' + ${pizza.id}}" method="post">
+				<input type="submit" value="DELETE" >
+			</form>
+		</li>
+	</ul>
+	<div th:if="${pizzas.size()} == 0">
+		Non c'è niente
+	</div>
+</body>
+
+</html>
