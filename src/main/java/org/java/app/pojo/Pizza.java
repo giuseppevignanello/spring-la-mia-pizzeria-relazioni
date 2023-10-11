@@ -4,6 +4,8 @@ package org.java.app.pojo;
 
 
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -12,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
@@ -56,6 +59,9 @@ public class Pizza {
 	public Pizza() {
 		
 	}
+	
+	@OneToMany(mappedBy = "pizza")
+	private List<SpecialOffer> specialOffers;
 	
 	public Pizza(String name, String description, String photo, double price) {
 		setName(name); 
@@ -102,5 +108,13 @@ public class Pizza {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public List<SpecialOffer> getSpecialOffers() {
+		return specialOffers;
+	}
+	
+	public void setSpecialOffers(List <SpecialOffer> specialOffers) {
+		this.specialOffers = specialOffers;
 	}
 }
