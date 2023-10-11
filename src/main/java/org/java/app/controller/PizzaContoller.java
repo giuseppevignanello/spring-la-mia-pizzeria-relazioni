@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.java.app.pojo.Pizza;
+import org.java.app.pojo.SpecialOffer;
+import org.java.app.serv.OfferService;
 import org.java.app.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class PizzaContoller {
 	
 	@Autowired
 	private PizzaService pizzaService;
+	@Autowired
+	private OfferService offerService;
 	
 	@GetMapping("/")
 	public String getIndex(Model model, @RequestParam(required= false) String name) {
@@ -38,7 +42,9 @@ public class PizzaContoller {
 	public String show(Model model, @PathVariable int id) {
 		
 		Pizza pizza = pizzaService.findById(id);
+		 List<SpecialOffer> specialOffers = pizza.getSpecialOffers(); 
 		model.addAttribute("pizza", pizza);	
+		 model.addAttribute("specialOffers", specialOffers);
 		return "show";
 	}
 	
@@ -116,5 +122,33 @@ public class PizzaContoller {
 		pizzaService.deletePizza(pizzaToDelete);
 		return "redirect:/";
 	}
-
+	
+	@GetMapping("/createOffer/{pizza_id}")
+	public String offer(
+			@PathVariable("pizza_id") int id, Model model
+			) {
+		
+		Pizza pizza = pizzaService.findById(id);
+		SpecialOffer specialOffer = new SpecialOffer();
+		model.addAttribute("pizza", pizza); 
+		model.addAttribute("specialOffer", specialOffer);
+				return "createOffer";
+		
+	}
+	
+	@PostMapping("/createOffer/{pizza_id}")
+	public String storeOffer(@Valid @ModelAttribute SpecialOffer specialOffer, 
+			BindingResult bindingResult, 
+			@PathVariable("pizza_id") int id, 
+			Model model
+	) {
+		
+		Pizza pizza = pizzaService.findById(id); 
+		specialOffer.setPizza(pizza); 
+		
+		offerService.save(specialOffer);
+		
+		return "redirect:/" + id;
+		
+	}
 }

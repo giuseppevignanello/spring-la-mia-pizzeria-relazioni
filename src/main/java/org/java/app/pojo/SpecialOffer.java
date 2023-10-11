@@ -69,5 +69,12 @@ public class SpecialOffer {
 	public void setTitle (String title) {
 		this.title = title;
 	}
+	
+	public Pizza getPizza() {
+		return pizza;
+	}
+	public void setPizza(Pizza pizza) {
+		this.pizza = pizza;
+	}
 }
 
