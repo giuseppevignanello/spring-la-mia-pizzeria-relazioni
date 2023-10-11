@@ -16,13 +16,15 @@
         <img style="width: 200px;" th:src="${pizza.photo}">
         <p>Description: <span th:text="${pizza.description}"></span></p>
         <p>Price: $ <span th:text="${pizza.price}"></span></p>
+        <h5>Special Offers</h5>
         <ul>
-			<h5>Special Offers</h5>
+			
 			<li class="d-flex gap-2" th:each ="specialOffer : *{specialOffers}" th:object="${specialOffer}">
 				<p>[[*{title}]]</p>
 				<p>[[*{startDate}]]</p>
 				<p>[[*{endDate}]]</p>
-				<a><button>Modifica Offerta</button></a>
+				<a th:href="@{/editOffer/{special_offer_id}(special_offer_id=${specialOffer.id})}">
+					<button>Modifica Offerta</button></a>
 			</li>
 			
 		</ul>

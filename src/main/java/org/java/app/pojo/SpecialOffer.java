@@ -1,6 +1,7 @@
 package org.java.app.pojo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -39,6 +40,14 @@ public class SpecialOffer {
 	@JoinColumn(nullable = false)
 	private Pizza pizza;
 	
+	public SpecialOffer() {}; 
+	public SpecialOffer(LocalDate startDate, LocalDate endDate, String title, Pizza pizza) {
+		setStartDate(startDate); 
+		setEndDate(endDate); 
+		setTitle(title); 
+		setPizza(pizza);
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -75,6 +84,20 @@ public class SpecialOffer {
 	}
 	public void setPizza(Pizza pizza) {
 		this.pizza = pizza;
+	}
+	
+	public String getHTMLStartDate() {
+		return getStartDate() == null ? null : getStartDate().format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
+	}
+	public void setHTMLStartDate(String date) {
+		setStartDate(LocalDate.parse(date));
+	}
+	
+	public String getHTMLEndDate() {
+		return getEndDate() == null ? null : getEndDate().format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
+	}
+	public void setHTMLEndDate(String date) {
+		setEndDate(LocalDate.parse(date));
 	}
 }
 

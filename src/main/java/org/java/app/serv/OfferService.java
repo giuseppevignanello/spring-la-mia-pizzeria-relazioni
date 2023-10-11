@@ -17,4 +17,8 @@ public class OfferService {
 
 		offerRepo.save(specialOffer);
 	}
+
+	public SpecialOffer findById(int id) {
+		return offerRepo.findById(id).get();
+	}
 }

@@ -151,4 +151,28 @@ public class PizzaContoller {
 		return "redirect:/" + id;
 		
 	}
+	
+	@GetMapping("/editOffer/{special_offer_id}")
+	public String editOffer(@PathVariable("special_offer_id") int id, Model model) {
+		
+		SpecialOffer specialOffer = offerService.findById(id);
+		List<Pizza> pizzas = pizzaService.findAll();
+		
+		model.addAttribute("specialOffer", specialOffer);
+		model.addAttribute("pizzas", pizzas);
+		return "editOffer";
+	}
+	@PostMapping("/editOffer/{special_offer_id}")
+	public String updateOffer (@Valid @ModelAttribute SpecialOffer specialOffer, 
+			BindingResult bindingResult) {
+		Pizza pizzaWithOffer = specialOffer.getPizza();
+		
+		offerService.save(specialOffer);
+		
+	
+		
+		return "redirect:/ " + pizzaWithOffer.getId();
+		
+	}
+	
 }
