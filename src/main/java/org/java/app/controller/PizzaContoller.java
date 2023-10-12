@@ -5,6 +5,7 @@ package org.java.app.controller;
 import java.util.List;
 
 import org.hibernate.internal.build.AllowSysOut;
+import org.java.app.pojo.Ingredient;
 import org.java.app.pojo.Pizza;
 import org.java.app.pojo.SpecialOffer;
 import org.java.app.serv.OfferService;
@@ -43,8 +44,10 @@ public class PizzaContoller {
 		
 		Pizza pizza = pizzaService.findById(id);
 		 List<SpecialOffer> specialOffers = pizza.getSpecialOffers(); 
+		 List<Ingredient> ingredients = pizza.getIngredients();
 		model.addAttribute("pizza", pizza);	
 		 model.addAttribute("specialOffers", specialOffers);
+		 model.addAttribute("ingredients", ingredients);
 		return "show";
 	}
 	

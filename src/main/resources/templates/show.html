@@ -28,6 +28,12 @@
 			</li>
 			
 		</ul>
+		<h5>Ingredienti</h5>
+		<ul>
+			<li class="d-flex gap-2" th:each="ingredient : *{ingredients}" th:object="${ingredient}">
+				<p>[[*{name}]]</p>
+			</li>
+		</ul>
         <a th:href="@{/createOffer/{pizza_id}(pizza_id=${pizza.id})}"> <button> Aggiungi una nuova offerta speciale</button> </a>
     </div>
     </div>
