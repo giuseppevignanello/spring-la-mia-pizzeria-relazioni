@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ingredienti</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<a href="/ingredients/ingredients_create"> Crea un nuovo ingrediente </a>
+	
+	<ul th:if="${ingredients.size()} > 0" class="list-unstyled">
+		<li th:each="ingredient: ${ingredients}">
+				<p>[[${ingredient.name}]]</p>
+		</li>
+	</ul>
+	<div th:if="${ingredients.size()} == 0">
+		Non c'è niente
+	</div>
+</body>
+
+</html>

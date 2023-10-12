@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Ingredienti</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<form
+		method="POST"
+	>
+	<label for="name">Name</label>
+		<input type="text" id="name" th:field="*{name}">
+		<div
+			th:each="pizza : ${pizzas}"
+			th:object="${pizza}"
+		>
+			<input 
+				type="checkbox" 
+				th:id="${'pizza-' + pizza.id}"
+				th:value="*{id}"
+				th:field="${ingredients.pizzas}"
+			>
+			<label th:for="${'pizza-' + pizza.id}">[[*{name}]]</label>
+		</div>
+		<button type=""></button>
+	</form>
+</body>
+
+</html>

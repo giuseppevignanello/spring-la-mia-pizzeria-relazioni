@@ -1,6 +1,8 @@
 package org.java.app;
 
+import org.java.app.pojo.Ingredient;
 import org.java.app.pojo.Pizza;
+import org.java.app.serv.IngredientService;
 import org.java.app.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,12 +15,24 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	@Autowired
 	private PizzaService pizzaService;
 	
+	@Autowired 
+	private IngredientService ingredientService;
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
 	}
+	
 
+	 
 	@Override
 	public void run(String... args) throws Exception {
+		Ingredient ingredient1 = new Ingredient("Tomato");
+	     Ingredient ingredient2 = new Ingredient("Mozzarella");
+	     Ingredient ingredient3 = new Ingredient("Ham");
+
+	        
+	     ingredientService.save(ingredient1);
+	     ingredientService.save(ingredient2);
+	     ingredientService.save(ingredient3);
 		Pizza margherita = new Pizza("Margherita", 
 				"La margherita è un grande classico senza tempo. Con pomodoro, mozzarella fiordilatte e una foglia di basilico",
 				"https://it.ooni.com/cdn/shop/articles/Margherita-9920.jpg?crop=center&height=800&v=1644590028&width=800",

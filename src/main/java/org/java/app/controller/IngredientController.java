@@ -3,6 +3,7 @@ package org.java.app.controller;
 import java.util.List;
 
 import org.java.app.pojo.Ingredient;
+import org.java.app.pojo.Pizza;
 import org.java.app.serv.IngredientService;
 import org.java.app.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,19 @@ public class IngredientController {
 	@GetMapping 
 	public String getIndex(Model model) {
 		List <Ingredient> ingredients = ingredientService.findAll();
+		System.out.println(ingredients);
 		model.addAttribute("ingredients", ingredients);
-		return "ingredientsIndex";
+		return "ingredients_index";
+	}
+
+	
+	@GetMapping("/ingredients_create") 
+	public String getCreate(Model model) {
+		List<Pizza> pizzas = pizzaService.findAll(); 
+		Ingredient ingredient = new Ingredient(); 
+		model.addAttribute("ingredient", ingredient); 
+		model.addAttribute("pizzas", pizzas);
+		
+		return "ingredients_create"; 
 	}
 }
