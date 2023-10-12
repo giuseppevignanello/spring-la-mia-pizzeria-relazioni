@@ -10,10 +10,13 @@
 
 <body>
 	<a href="/ingredients/ingredients_create"> Crea un nuovo ingrediente </a>
-	
+
 	<ul th:if="${ingredients.size()} > 0" class="list-unstyled">
-		<li th:each="ingredient: ${ingredients}">
-				<p>[[${ingredient.name}]]</p>
+		<li class="d-flex gap-2" th:each="ingredient: ${ingredients}">
+			<p>[[${ingredient.name}]]</p>
+			<form th:action="@{'/ingredients/ingredients_delete/' + ${ingredient.id}}" method="post">
+				<input type="submit" value="DELETE">
+			</form>
 		</li>
 	</ul>
 	<div th:if="${ingredients.size()} == 0">
