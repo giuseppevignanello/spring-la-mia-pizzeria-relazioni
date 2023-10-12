@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -62,6 +63,9 @@ public class Pizza {
 	
 	@OneToMany(mappedBy = "pizza")
 	private List<SpecialOffer> specialOffers;
+	
+	@ManyToMany 
+	private List<Ingredient> ingredients;
 	
 	public Pizza(String name, String description, String photo, double price) {
 		setName(name); 
