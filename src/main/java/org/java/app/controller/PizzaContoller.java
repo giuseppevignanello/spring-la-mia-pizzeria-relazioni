@@ -8,6 +8,8 @@ import org.hibernate.internal.build.AllowSysOut;
 import org.java.app.pojo.Ingredient;
 import org.java.app.pojo.Pizza;
 import org.java.app.pojo.SpecialOffer;
+import org.java.app.repo.IngredientRepo;
+import org.java.app.serv.IngredientService;
 import org.java.app.serv.OfferService;
 import org.java.app.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class PizzaContoller {
 	private PizzaService pizzaService;
 	@Autowired
 	private OfferService offerService;
+	@Autowired
+	private IngredientService ingredientService;
 	
 	@GetMapping("/")
 	public String getIndex(Model model, @RequestParam(required= false) String name) {
@@ -54,8 +58,9 @@ public class PizzaContoller {
 	@GetMapping("/create")
 	public String getCreateForm(Model model) {
 		
+		List<Ingredient> ingredients = ingredientService.findAll();
 		model.addAttribute("pizza", new Pizza());
-		
+		model.addAttribute("ingredients", ingredients);
 		return "create";
 	}
 	
@@ -74,6 +79,14 @@ public class PizzaContoller {
 		
 		try {
 			pizzaService.save(pizza);
+			List<Ingredient> ingredients = ingredientService.findAll();
+			for (Ingredient ingredient: ingredients) {
+				if(pizza.hasIngredient(ingredient))
+					ingredient.addPizzas(pizza);
+				else ingredient.removePizzas(pizza);
+				
+				ingredientService.save(ingredient);
+			}
 		} catch(Exception e) {
 			System.out.println("Errors: " + e.getClass().getSimpleName());
 			return "create";
@@ -87,7 +100,9 @@ public class PizzaContoller {
 	
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable int id, Model model) {
+		List<Ingredient> ingredients = ingredientService.findAll();
 		model.addAttribute("pizza", pizzaService.findById(id));
+		model.addAttribute("ingredients", ingredients);
 		return "edit";
 	}
 	
