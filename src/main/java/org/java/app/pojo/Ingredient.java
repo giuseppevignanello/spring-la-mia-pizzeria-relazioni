@@ -1,5 +1,6 @@
 package org.java.app.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
@@ -51,7 +52,31 @@ public class Ingredient {
 		
 	}
 	
-
+	public List<Pizza> getPizzas() {
+		return pizzas;
+	}
+	
+	public void setPizzas(List<Pizza> pizzas) {
+		this.pizzas = pizzas;
+	}
+	
+	public boolean hasPizza(Pizza pizza) {
+		if(getPizzas() == null) return false; 
+		for (Pizza p : getPizzas()) 
+			if (p.getId() == pizza.getId()) 
+				return true;
+		return false; 
+		
+	} 
+	
+	public void addPizzas (Pizza ...pizzas) {
+		getPizzas().addAll(Arrays.asList(pizzas));
+	}
+	public void removePizzas(Pizza ...pizzas) {
+		getPizzas().removeAll(Arrays.asList(pizzas));
+		
+	}
+	
 	@Override
 	public String toString() {
 		

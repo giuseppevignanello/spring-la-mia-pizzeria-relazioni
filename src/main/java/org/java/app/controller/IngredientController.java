@@ -1,6 +1,7 @@
 package org.java.app.controller;
 
 import java.util.List;
+import java.util.Locale.Category;
 
 import org.java.app.pojo.Ingredient;
 import org.java.app.pojo.Pizza;
@@ -9,8 +10,13 @@ import org.java.app.serv.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
 
 @Controller 
 @RequestMapping("/ingredients")
@@ -39,5 +45,25 @@ public class IngredientController {
 		model.addAttribute("pizzas", pizzas);
 		
 		return "ingredients_create"; 
+	}
+	
+	@PostMapping("/ingredients_create")
+	public String storeIngredient(@Valid @ModelAttribute Ingredient ingredient, 
+			BindingResult bindingResult, 
+			Model model) {
+		
+		ingredientService.save(ingredient);
+		List <Pizza> pizzas = pizzaService.findAll(); 
+		
+		for (Pizza pizza: pizzas) {
+			if(ingredient.hasPizza(pizza))
+				pizza.addIngredient(ingredient); 
+			else pizza.removeIngredient(ingredient); 
+			
+			pizzaService.save(pizza);
+		}
+			
+		return "redirect:/ingredients";
+		
 	}
 }

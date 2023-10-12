@@ -121,4 +121,27 @@ public class Pizza {
 	public void setSpecialOffers(List <SpecialOffer> specialOffers) {
 		this.specialOffers = specialOffers;
 	}
+	
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	public boolean hasIngredient(Ingredient ingredient) {
+		if(getIngredients() == null) return false; 
+		for (Ingredient i : getIngredients())
+			if (ingredient.getId() == i.getId())
+				return true;
+		return false;
+	}
+	
+	public void addIngredient (Ingredient ingredient) {
+		getIngredients().add(ingredient);
+	}
+	public void removeIngredient(Ingredient ingredient) {
+		getIngredients().remove(ingredient);
+	}
 }

@@ -10,6 +10,7 @@
 
 <body>
 	<form
+		th:object="${ingredient}"
 		method="POST"
 	>
 	<label for="name">Name</label>
@@ -22,11 +23,11 @@
 				type="checkbox" 
 				th:id="${'pizza-' + pizza.id}"
 				th:value="*{id}"
-				th:field="${ingredients.pizzas}"
+				th:field="${ingredient.pizzas}"
 			>
 			<label th:for="${'pizza-' + pizza.id}">[[*{name}]]</label>
 		</div>
-		<button type=""></button>
+		<button type="submit">Crea</button>
 	</form>
 </body>
 
